@@ -1,0 +1,95 @@
+<?php 
+$cash = 2; 
+
+if(isset($_POST['submit'])) { 
+
+
+// Authorize 
+$accountNumber = '123'; //Your account number in the Payeer system 
+$apiId = '123'; // api-user id, issued when adding API 
+$apiKey = '123'; //api user secret key 
+
+require_once('cpayeer.php'); 
+$payeer = new CPayeer($accountNumber, $apiId, $apiKey); 
+if ($payeer->isAuth()) 
+{ 
+	echo "You have been successfully authorized"; 
+} 
+else 
+{ 
+	echo '<pre>'.print_r($payeer->getErrors(), true).'</pre>'; 
+} 
+
+// Check if the account exists 
+if ($payeer->isAuth()) 
+{ 
+	if($payeer-> 
+		echo 'exists'; 
+
+
+		// If exists, make payment 
+		here if ($payeer->isAuth()) 
+		{ 
+			$initOutput = $payeer->initOutput(array( 
+				'ps' => '1136053', 
+				//'sumIn' => 1, 
+				'curIn' => 'RUB', 
+				'sumOut' => $cash, 
+				'curOut' => 'RUB', 
+				'param_ACCOUNT_NUMBER' => '123' 
+			)); 
+
+			if ($initOutput) 
+			{ 
+				$historyId = $payeer->output(); 
+				if ($historyId > 0) 
+				{ 
+					echo "Payout successful"; 
+
+
+				} 
+				else 
+				{ 
+					echo '<pre>'. 
+					echo "Payout failed"; 
+				}
+			} 
+			else 
+			{ 
+				echo '<pre>'.print_r($payeer->getErrors(), true).'</pre>'; 
+				echo "ХЗХЗ"; 
+			} 
+		} 
+		else 
+		{ 
+			echo '<pre>'.print_r($payeer->getErrors(), true).'</pre>'; 
+			echo "No authentication"; 
+		} 
+
+		// Finished making the payout 
+	} 
+	else 
+	{ 
+		echo 'not found'; 
+	} 
+} 
+else 
+{ 
+	echo '<pre>'.print_r($payeer->getErrors(), true).'</pre>'; 
+} 
+
+
+} 
+
+?> 
+<!DOCTYPE html> 
+<html lang="en"> 
+<head>
+	<?=$cash?>
+
+	<form method="POST" action="">
+		<input type="submit" name="submit" value="Widthraw">
+	</form>
+	
+</body>
+</html>
